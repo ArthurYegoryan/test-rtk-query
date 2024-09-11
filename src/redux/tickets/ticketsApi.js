@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { useSelector } from "react-redux";
 
 export const ticketsApi = createApi({
     reducerPath: "ticketsApi",
@@ -7,39 +6,44 @@ export const ticketsApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "/api",
         prepareHeaders: (headers) => {
-            const token = useSelector((state) => state.auth.authData?.access_token);
+            const authData = JSON.parse(localStorage.getItem("authData"));
 
-            if (token) {
-                headers.set("authorization", `Bearer ${token}`);
+            if (authData) {
+                headers.set("authorization", `Bearer ${authData["access_token"]}`);
             }
         },
     }),
-    endpoints: (build) => ({
-        getTickets: build.query({
+    endpoints: (builder) => ({
+        getTickets: builder.query({
             query: () => `api/v1/tickets/`,
-            providesTags: (result) => result
-              ? [
-                    ...result.map(({ id }) => ({ type: "Tickets", id })),
-                    { type: "Tickets", id: "LIST" },
-                ]
-              : [{ type: "Tickets", id: "LIST" }], 
+            // providesTags: (result) => result
+            //   ? [
+            //         ...result.map(({ id }) => ({ type: "Tickets", id })),
+            //         { type: "Tickets", id: "LIST" },
+            //     ]
+            //   : [{ type: "Tickets", id: "LIST" }], 
         }),
-        addTicket: build.mutation({
+        addTicket: builder.mutation({
             query: (body) => ({
                 url: `tickets/`,
                 method: "POST",
                 body,
             }),
-            invalidatesTags: [{ type: "Tickets", id: "LIST" }]
+            // invalidatesTags: [{ type: "Tickets", id: "LIST" }]
         }),
-        deleteTicket: build.mutation({
+        deleteTicket: builder.mutation({
             query: (id) => ({
                 url: `tickets/${id}`,
                 method: "DELETE"
             }),
-            invalidatesTags: [{ type: "Tickets", id: "LIST" }]
+            // invalidatesTags: [{ type: "Tickets", id: "LIST" }]
         }),
-    })
+    }),
+    refetchOnMountOrArgChange: true
 });
 
-export const { useGetTicketsQuery, useAddTicketMutation, useDeleteTicketMutation } = ticketsApi;
+export const { 
+    useGetTicketsQuery, 
+    useAddTicketMutation, 
+    useDeleteTicketMutation 
+} = ticketsApi;

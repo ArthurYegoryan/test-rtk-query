@@ -1,33 +1,23 @@
 import './TicketsPage.css';
+import Table from "../../generalComponents/table/Table";
+import Loader from '../../generalComponents/loaders/Loader';
+import { addNumeration } from '../../utils/helpers/addNumeration';
 import { useGetTicketsQuery, useAddTicketMutation, useDeleteTicketMutation } from '../../redux/tickets/ticketsApi';
 import { logOut } from '../../redux/auth/authSlice';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-function TicketsPage() {
+const TicketsPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const [ newTicket, setNewTicket ] = useState("");
-    const { data = [], isLoading } = useGetTicketsQuery();
-    const [ addTicket, {isError} ] = useAddTicketMutation();
-    const [ deleteTicket ] = useDeleteTicketMutation();
+    
+    const { data = [], error, isLoading } = useGetTicketsQuery();
 
     console.log("Tickets: ", data);
 
-    const handleAddTicket = async () => {
-        if (newTicket) {
-            await addTicket({name: newProduct}).unwrap();
-            setNewTicket("");
-        }
-    };
-
-    const handleDeleteTicket = async (id) => {
-        await deleteTicket(id).unwrap();
-    };
-
-    if (isLoading) return <h1>Loading...</h1>
+    // const [ newTicket, setNewTicket ] = useState("");
+    
+    if (isLoading) return <Loader />
 
     return (
         <>
@@ -37,8 +27,30 @@ function TicketsPage() {
             }}>
                 Log Out
             </button>
+            <h1>Data</h1>
+            <Table whichTable={"tickets"}
+                   datas={addNumeration(data.items, data.page, data.size, false, data.total)} />
         </>
     );
 }
 
 export default TicketsPage;
+
+
+// const [ addTicket, {isError} ] = useAddTicketMutation();
+    // const [ deleteTicket ] = useDeleteTicketMutation();
+
+    // if (error) {
+    //     console.log(error.message);
+    // }
+
+    // const handleAddTicket = async () => {
+    //     if (newTicket) {
+    //         await addTicket({name: newProduct}).unwrap();
+    //         setNewTicket("");
+    //     }
+    // };
+
+    // const handleDeleteTicket = async (id) => {
+    //     await deleteTicket(id).unwrap();
+    // };
