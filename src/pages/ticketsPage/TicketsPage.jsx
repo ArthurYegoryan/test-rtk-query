@@ -3,9 +3,10 @@ import Table from "../../generalComponents/table/Table";
 import Loader from '../../generalComponents/loaders/Loader';
 import { Modal } from 'antd';
 import { addNumeration } from '../../utils/helpers/addNumeration';
+import { MakeReceipt } from '../../utils/helpers/MakeReceipt';
 import { useGetTicketsQuery, useSearchTicketMutation } from '../../redux/tickets/ticketsApi';
 import { logOut } from '../../redux/auth/authSlice';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,8 +23,6 @@ const TicketsPage = () => {
 
     const { data = [], error, isLoading } = useGetTicketsQuery(currentPage, pageSize);
     const dataWithNumbers = data.items ? addNumeration(data.items, data.page, data.size, false, data.total) : [];
-
-    console.log("Tickets: ", dataWithNumbers);
 
     if (isLoading) return <Loader />
     
@@ -83,8 +82,11 @@ const TicketsPage = () => {
                 open={isModalOpen} 
                 onOk={handleOk} 
                 onCancel={handleCancel}
+                style={{
+                    maxWidth: "400px"
+                }}
             >
-                {currentTicketSlip}
+                <MakeReceipt ticketSlip={currentTicketSlip} />
             </Modal>
         </>
     );
