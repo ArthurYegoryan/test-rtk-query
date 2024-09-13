@@ -9,6 +9,8 @@ const TableComponent = ({
     whichTable,
     size = "normal",
     datas,
+    pagination,
+    onClickEye,
     setCurrentData,
     onClickHref,
     onClickEditButton,
@@ -37,31 +39,31 @@ const TableComponent = ({
             title: t("tickets.rrn"),
             dataIndex: 'rrn',
             key: 'rrn',
-            width: "10px",
+            width: "8px",
         },
         {
             title: t("tickets.authCode"),
             dataIndex: 'authCode',
             key: 'authCode',
-            width: "10px",
+            width: "7px",
         },
         {
             title: t("tickets.tid"),
             dataIndex: 'terminalId',
             key: 'terminalId',
-            width: "10px",
+            width: "8px",
         },        
         {
             title: t("tickets.mid"),
             dataIndex: 'merchantId',
             key: 'merchantId',
-            width: "10px",
+            width: "8px",
         },
         {
             title: t("tickets.transactionType"),
             dataIndex: 'type',
             key: 'type',
-            width: "10px",
+            width: "11px",
         },
         {
             title: t("tickets.amount"),
@@ -73,25 +75,25 @@ const TableComponent = ({
             title: t("tickets.tip"),
             dataIndex: 'tip',
             key: 'tip',
-            width: "10px",
+            width: "8px",
         },
         {
             title: t("tickets.status"),
             dataIndex: 'approved',
             key: 'approved',
-            width: "8px",
+            width: "9px",
             render: (record) => (
                 <Space size="middle">
                     {
-                        record === "true" ? 
-                            <img src={'../../assets/img/success.svg'} 
+                        String(record) === "true" ? 
+                            <img src={'src/assets/img/success.svg'} 
                                 alt="Success" 
                                 style={{
                                     width: "25px"
                                 }}
                             /> :
-                        record === "false" ?
-                            <img src={'../../assets/img/success.svg'} 
+                        String(record) === "false" ?
+                            <img src={'src/assets/img/success.svg'} 
                                 alt="Fail" 
                                 style={{
                                     width: "25px"
@@ -100,6 +102,18 @@ const TableComponent = ({
                     }
                 </Space>
             )
+        },
+        {
+            title: t("tickets.responseCode"),
+            dataIndex: 'acqResponseCode',
+            key: 'acqResponseCode',
+            width: "10px",
+        },
+        {
+            title: t("tickets.message"),
+            dataIndex: 'acqResponseMessage',
+            key: 'acqResponseMessage',
+            width: "12px",
         },
         {
             title: t("tickets.cardType"),
@@ -127,12 +141,15 @@ const TableComponent = ({
         },
         {
             title: "",
-            dataIndex: 'eye',
             key: 'eye',
             width: "5px",
-            render: (record) => (
+            render: (record) => (                
                 <Space size="middle">
-                    <EyeOutlined />
+                    <EyeOutlined 
+                        onClick={() => {
+                            onClickEye(record);
+                        }} 
+                    />
                 </Space>
             )
         },
@@ -146,7 +163,7 @@ const TableComponent = ({
         <Table
             columns={columns}            
             dataSource={datas}
-            pagination={false}
+            pagination={pagination ? pagination : false}
             size={size}
             sticky={{
                 offsetHeader: 0,

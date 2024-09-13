@@ -17,5 +17,5 @@ export const addNumeration = (items, currentPage, pageSize, reversed = false, to
         });
     }
 
-    return items;
+    return itemsWithNumbers;
 };

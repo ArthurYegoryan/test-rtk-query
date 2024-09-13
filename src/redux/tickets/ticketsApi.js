@@ -15,13 +15,20 @@ export const ticketsApi = createApi({
     }),
     endpoints: (builder) => ({
         getTickets: builder.query({
-            query: () => `api/v1/tickets/`,
-            // providesTags: (result) => result
+            query: (page = 1, size = 10) => `api/v1/tickets/?page=${page}&size=${size}`,
+            // providesTags: (result, error, page) => result
             //   ? [
             //         ...result.map(({ id }) => ({ type: "Tickets", id })),
             //         { type: "Tickets", id: "LIST" },
             //     ]
             //   : [{ type: "Tickets", id: "LIST" }], 
+        }),
+        searchTicket: builder.mutation({
+            query: (body) => ({
+                url: `api/v1/tickets/search`,
+                method: "POST",
+                body,
+            }),
         }),
         addTicket: builder.mutation({
             query: (body) => ({
@@ -43,7 +50,8 @@ export const ticketsApi = createApi({
 });
 
 export const { 
-    useGetTicketsQuery, 
+    useGetTicketsQuery,
+    useSearchTicketMutation,
     useAddTicketMutation, 
     useDeleteTicketMutation 
 } = ticketsApi;
