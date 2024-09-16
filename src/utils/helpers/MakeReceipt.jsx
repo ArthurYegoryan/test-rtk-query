@@ -26,7 +26,12 @@ export const MakeReceipt = ({
                                       startNumber === "23" ? "12px" :
                                       startNumber === "25" ? "14px" :
                                       startNumber === "30" ? "16px" : 
-                                      startNumber === "40" ? "18px" : "18px"
+                                      startNumber === "40" ? "18px" : "18px",
+                            fontWeight: (
+                                            startNumber === "40" ||
+                                            (startNumber === "30" && indexChar === "C") ||
+                                            !rowsStartNumbers.includes(startNumber)
+                                        ) && "600"
                         }}
                     >
                         {!rowsStartNumbers.includes(startNumber) ? 
@@ -34,7 +39,13 @@ export const MakeReceipt = ({
                             (
                                 (startNumber === "25" && indexChar === "L") &&
                                 rowsTextsStartings.includes(rowText.slice(0, 5)) ||
-                                rowText.startsWith("TID") || rowText.startsWith("Գումար")
+                                rowText.startsWith("TID") || 
+                                rowText.startsWith("Գումար") ||
+                                (
+                                    startNumber === "20" &&
+                                    !rowText.startsWith("Ստո") &&
+                                    !rowText.startsWith("Պահ")
+                                )
                             ) ? (
                                 <div
                                     style={{
@@ -76,6 +87,13 @@ export const MakeReceipt = ({
                                             <>
                                                 <span>{rowText.slice(0, rowText.indexOf("["))}</span>
                                                 <span>{rowText.slice(rowText.indexOf("["))}</span>
+                                            </>
+                                        ) :
+                                        rowText.startsWith("SF") ?
+                                        (
+                                            <>
+                                                <span>{rowText.slice(0, rowText.indexOf(" "))}</span>
+                                                <span>{rowText.slice(rowText.lastIndexOf(" "))}</span>
                                             </>
                                         ) :
                                         <>
