@@ -145,7 +145,7 @@ const TableComponent = ({
             width: "5px",
             render: (record) => (                
                 <Space size="middle">
-                    <EyeOutlined 
+                    <EyeOutlined style={{ color: "blue" }}
                         onClick={() => {
                             onClickEye(record);
                         }} 

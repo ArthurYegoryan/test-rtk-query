@@ -3,9 +3,12 @@ import Loader from "../../../../generalComponents/loaders/Loader";
 import { Form, Input } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
 import { useLoginMutation } from '../../../../redux/auth/authApi';
+import { editUsername } from '../../../../redux/activeUser/activeUserSlice';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [ login, { isLoading } ] = useLoginMutation();
 
@@ -32,6 +35,7 @@ const LoginForm = () => {
         console.log("Response: ", response);
 
         if (response.data.access_token) {
+            dispatch(editUsername(data.username));
             navigate("/tickets");
         }
     }
