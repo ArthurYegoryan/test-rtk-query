@@ -30,10 +30,6 @@ const TicketsPage = () => {
         setIsModalOpen(true);
     };
 
-    const handleOk = () => {
-        setIsModalOpen(false);
-    };
-
     const handleCancel = () => {
         setIsModalOpen(false);
     };
@@ -80,8 +76,8 @@ const TicketsPage = () => {
             </div>
             <Modal 
                 open={isModalOpen} 
-                onOk={handleOk} 
                 onCancel={handleCancel}
+                footer={null}
                 style={{
                     maxWidth: "400px"
                 }}
