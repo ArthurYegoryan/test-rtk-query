@@ -1,70 +1,97 @@
 import React from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { Layout, Form, Input, Button } from 'antd';
 import Loader from '../../generalComponents/loaders/Loader';
 import ProjectNameAnimation from '../../generalComponents/projecNameAnimation/ProjectNameAnimation';
+import { paths } from "../../constants/paths/paths";
 import { useLoginMutation } from '../../redux/auth/authApi';
 import { editUsername } from '../../redux/activeUser/activeUserSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { Layout, Form, Input, Button, Flex, Typography } from 'antd';
 
 const { Content } = Layout;
+const { Text } = Typography;
 
 const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [ login, { isLoading } ] = useLoginMutation();
+    const { t } = useTranslation();
+    const [ login, { isLoading, error, isError } ] = useLoginMutation();
     const { 
         handleSubmit, 
         reset, 
-        control 
+        control,
+        formState: { errors }
     } = useForm({
         mode: "onBlur"
     });
+    const [ showUsernamePassError, setShowUsernamePassError ] = useState(false);
 
     const onSubmit = async (data) => {
-        console.log(JSON.stringify(data, null, 2));
+        setShowUsernamePassError(false);
         
         const form = new FormData();
         form.append('username', data.username);
         form.append('password', data.password);
         
         const response = await login(form);
-        console.log("Response: ", response);
-        reset();
         
-        if (response.data.access_token) {
+        if (response.data?.access_token) {
+            reset();
             dispatch(editUsername(data.username));
-            navigate("/tickets");
+            navigate(paths.LOGIN);
+        } else if (response.error.status === 401) {
+            setShowUsernamePassError(true);
         }
     };
 
     if (isLoading) return <Loader />;
 
     return (
-        <Layout style={{ minHeight: '100vh' }}>
+        <Layout style={{ minHeight: '100vh' }}>                      
             <Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                {/* <ProjectNameAnimation /> */}
+                <ProjectNameAnimation />
                 <Form onFinish={handleSubmit(onSubmit)} style={{ width: '250px' }}>
-                    <Form.Item>
+                    <Form.Item
+                        validateStatus={errors?.username ? 'error' : ''}
+                        help={errors?.username ? errors?.username?.message : ''}
+                    >
                         <Controller
                             name="username"
                             control={control}
                             defaultValue=""
-                            render={({ field }) => <Input {...field} placeholder='Username' />}
+                            rules={{ required: t("errors.emptyFieldError") }}
+                            render={({ field }) => <Input {...field} placeholder={t("login.username")} />}
                         />
                     </Form.Item>
-                    <Form.Item>
+                    <Form.Item
+                        validateStatus={errors.password ? 'error' : ''}
+                        help={errors.password ? errors.password.message : ''}
+                    >
                         <Controller
                             name="password"
                             control={control}
                             defaultValue=""
-                            render={({ field }) => <Input.Password {...field} placeholder='Password' />}
+                            rules={{ required: t("errors.emptyFieldError") }}
+                            render={({ field }) => <Input.Password {...field} placeholder={t("login.password")} />}
                         />
                     </Form.Item>
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit">
-                            Login
+                    {showUsernamePassError &&
+                        <Flex justify='center'>
+                            <Text type="danger">
+                                {t("errors.invalidUsernamePassError")}
+                            </Text>
+                        </Flex>
+                    }
+                    <Form.Item style={{ marginTop: "40px" }}>
+                        <Button 
+                            type="primary" 
+                            htmlType="submit" 
+                            style={{ width: '250px' }}
+                        >
+                            {t("login.login")}
                         </Button>
                     </Form.Item>
                 </Form>

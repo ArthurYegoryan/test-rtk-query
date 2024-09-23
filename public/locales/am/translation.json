@@ -1,4 +1,9 @@
 {
+    "login": {
+        "username": "Մուտքանուն",
+        "password": "Գաղտնաբառ",
+        "login":"Մուտք գործել"
+    },
     "tickets": {
         "number": "N",
         "rrn": "RRN",
@@ -15,6 +20,10 @@
         "pan": "PAN",
         "merchantName": "Վաճառակետի անուն",
         "merchantAddress": "Վաճառակետի հասցե"
+    },
+    "errors": {
+        "emptyFieldError": "Լրացրեք դաշտը",
+        "invalidUsernamePassError": "Սխալ մուտքանուն և/կամ գաղտնաբառ"
     },
     
     
@@ -171,7 +180,7 @@
     "searchSections": {
         "searchData": "Որոնման տվյալ"
     },
-    "errors": {
+    "errors_old": {
         "connectionError": "Կապի խնդիր, կրկին փորձեք!",
         "emptyFieldError": "Լրացրեք դաշտը",
         "emptyUsernameError": "Մուտքագրեք մուտքանունը",

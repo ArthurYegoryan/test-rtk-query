@@ -1,4 +1,9 @@
 {
+    "login": {
+        "username": "Имя пользователя",
+        "password": "Пароль",
+        "login":"Входить"
+    },
     "tickets": {
         "number": "N",
         "rrn": "RRN",
@@ -15,6 +20,10 @@
         "pan": "PAN",
         "merchantName": "Название торговой точки",
         "merchantAddress": "Адрес торговой точки"
+    },
+    "errors": {
+        "emptyFieldError": "Заполните поле",
+        "invalidUsernamePassError": "Неверный имя пользователя и/или пароль"
     },
     
     
@@ -171,7 +180,7 @@
     "searchSections": {
         "searchData": "Данные для поиска"
     },
-    "errors": {
+    "errors_old": {
         "connectionError": "Ошибка подключения, пожалуйста, повторите попытку!",
         "emptyFieldError": "Заполните поле",
         "emptyUsernameError": "Введите имя пользователя",

@@ -1,4 +1,9 @@
 {
+    "login": {
+        "username": "Username",
+        "password": "Password",
+        "login":"Login"
+    },
     "tickets": {
         "number": "N",
         "rrn": "RRN",
@@ -15,6 +20,10 @@
         "pan": "PAN",
         "merchantName": "Merchant name",
         "merchantAddress": "Merchant address"
+    },
+    "errors": {
+        "emptyFieldError": "Fill the field",
+        "invalidUsernamePassError": "Invalid username and/or password"
     },
     
     
@@ -171,7 +180,7 @@
     "searchSections": {
         "searchData": "Search data"
     },
-    "errors": {
+    "errors_old": {
         "connectionError": "Connection error, please try again!",
         "emptyFieldError": "Fill the field",
         "emptyUsernameError": "Enter the username",
