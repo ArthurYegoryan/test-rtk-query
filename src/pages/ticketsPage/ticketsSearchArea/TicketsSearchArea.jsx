@@ -1,19 +1,24 @@
-import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Form, Input, Button, Select } from 'antd';
 import { ticketsSearchFields } from '../../../constants/ticketsSearchFields/TicketsSearchFields';
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 
 const TicketsSearchArea = ({ onSubmit }) => {
+    const { t } = useTranslation();
     const { control, handleSubmit } = useForm();
 
     return (
         <Form 
             onFinish={handleSubmit(onSubmit)}
-            style={{ display: 'flex', gap: '16px', maxWidth: '900px', margin: 'auto' }}
+            style={{ 
+                display: 'flex', 
+                gap: '16px', 
+                height: '32px'
+            }}
         >
-            <Form.Item label="Search field">
+            <Form.Item label={t("tickets.ticketsSearch.searchField")}>
                 <Controller
                     name="searchField"
                     control={control}
@@ -28,7 +33,7 @@ const TicketsSearchArea = ({ onSubmit }) => {
                     )}
                 />
             </Form.Item>
-            <Form.Item label="Search value">
+            <Form.Item label={t("tickets.ticketsSearch.searchValue")}>
                 <Controller
                     name="searchValue"
                     control={control}

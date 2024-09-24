@@ -19,7 +19,15 @@
         "cardType": "Тип карты",
         "pan": "PAN",
         "merchantName": "Название торговой точки",
-        "merchantAddress": "Адрес торговой точки"
+        "merchantAddress": "Адрес торговой точки",
+        "ticketsSearch": {
+            "searchField": "Поле поиска",
+            "searchValue": "Данные поиска"
+        }
+    },
+    "operations": {
+        "search": "Поиск",
+        "logout": "Выйти"
     },
     "errors": {
         "emptyFieldError": "Заполните поле",
@@ -167,7 +175,7 @@
             "end": "Конец"
         }
     },
-    "operations": {
+    "operations_old": {
         "save": "Сохранить",
         "cancel": "Отменить",
         "export": "Экспорт",

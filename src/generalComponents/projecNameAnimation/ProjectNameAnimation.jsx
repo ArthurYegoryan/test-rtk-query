@@ -1,8 +1,13 @@
 import "./ProjectNameAnimation.css";
 
-const ProjectNameAnimation = () => {   
+const ProjectNameAnimation = ({ text, style }) => {   
     return (
-        <div class="gradient-text">TICKETS MANAGEMENT</div>
+        <div 
+            class="gradient-text"
+            style={style}
+        >
+            {text}
+        </div>
     );
 };
 

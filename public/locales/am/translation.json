@@ -19,7 +19,15 @@
         "cardType": "Քարտի տեսակ",
         "pan": "PAN",
         "merchantName": "Վաճառակետի անուն",
-        "merchantAddress": "Վաճառակետի հասցե"
+        "merchantAddress": "Վաճառակետի հասցե",
+        "ticketsSearch": {
+            "searchField": "Որոնման դաշտ",
+            "searchValue": "Որոնման տվյալ"
+        }
+    },
+    "operations": {
+        "search": "Որոնել",
+        "logout": "Դուրս գալ"
     },
     "errors": {
         "emptyFieldError": "Լրացրեք դաշտը",
@@ -167,7 +175,7 @@
             "end": "Ավարտ"
         }
     },
-    "operations": {
+    "operations_old": {
         "save": "Պահպանել",
         "cancel": "Չեղարկել",
         "export": "Արտահանել",

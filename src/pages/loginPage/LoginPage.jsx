@@ -40,8 +40,9 @@ const LoginPage = () => {
         
         if (response.data?.access_token) {
             reset();
+            localStorage.setItem("activeUser", data.username);
             dispatch(editUsername(data.username));
-            navigate(paths.LOGIN);
+            navigate(paths.TICKETS);
         } else if (response.error.status === 401) {
             setShowUsernamePassError(true);
         }
@@ -52,7 +53,14 @@ const LoginPage = () => {
     return (
         <Layout style={{ minHeight: '100vh' }}>                      
             <Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <ProjectNameAnimation />
+                <ProjectNameAnimation 
+                    text={"TICKETS MANAGEMENT"}
+                    style={{
+                        position: "absolute",
+                        top: "15%",
+                        fontSize: "5em",
+                    }} 
+                />
                 <Form onFinish={handleSubmit(onSubmit)} style={{ width: '250px' }}>
                     <Form.Item
                         validateStatus={errors?.username ? 'error' : ''}

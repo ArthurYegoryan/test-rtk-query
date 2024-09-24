@@ -1,7 +1,5 @@
 import "./Table.css";
-import { colors } from '../../constants/colors/colors';
-import { Space, Table, Typography } from 'antd';
-import { EyeOutlined } from "@ant-design/icons";
+import { Space, Table } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -11,15 +9,6 @@ const TableComponent = ({
     datas,
     pagination,
     onClickEye,
-    setCurrentData,
-    onClickHref,
-    onClickEditButton,
-    onClickDeleteButton,
-    renderHandler,
-    filterHandlers,
-    fuelTypesfilterHandlers,
-    stationsGroupFilterHandlers,
-    stationsFilterHandlers,
     windowHeight,
     minWidth,
     scrollBoth = false,
@@ -145,10 +134,16 @@ const TableComponent = ({
             width: "5px",
             render: (record) => (                
                 <Space size="middle">
-                    <EyeOutlined style={{ color: "blue" }}
+                    <img 
+                        src={'src/assets/img/receipt.svg'} 
+                        alt="Receipt" 
+                        style={{
+                            width: "25px",
+                            cursor: "pointer"
+                        }}
                         onClick={() => {
                             onClickEye(record);
-                        }} 
+                        }}
                     />
                 </Space>
             )

@@ -6,11 +6,8 @@ export const MakeReceipt = ({
 
     const rows = ticketSlip.split('\n');
 
-    console.log(JSON.stringify(rows, null, 3));
-
     return (
         rows.map((row) => {
-            console.log(row);
             const startNumber = row.slice(0, 2);
             const indexChar = row.slice(2, 3);
             const rowText = row.slice(4);

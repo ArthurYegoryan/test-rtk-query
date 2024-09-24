@@ -19,7 +19,15 @@
         "cardType": "Card type",
         "pan": "PAN",
         "merchantName": "Merchant name",
-        "merchantAddress": "Merchant address"
+        "merchantAddress": "Merchant address",
+        "ticketsSearch": {
+            "searchField": "Search field",
+            "searchValue": "Search value"
+        }
+    },
+    "operations": {
+        "search": "Search",
+        "logout": "Log Out"
     },
     "errors": {
         "emptyFieldError": "Fill the field",
@@ -167,7 +175,7 @@
             "end": "End"
         }
     },
-    "operations": {
+    "operations_old": {
         "save": "Save",
         "cancel": "Cancel",
         "export": "Export",

@@ -11,9 +11,6 @@
 }
 
 .gradient-text {
-    position: absolute;
-    top: 15%;
-    font-size: 5em;
     background: linear-gradient(270deg, #000000, #808080, #000000);
     background-size: 600% 600%;
     background-clip: text;
